@@ -38,8 +38,11 @@ class LoginViewModel extends ChangeNotifier {
         print("\n \n \n");
         print(response.headers);
         return LoginResult(true);
-      } else if (response.statusCode == 401) {
+      } else if (response.statusCode == 403) {
         return LoginResult(false, errorMessage: 'Invalid email or password.');
+      } else if (response.statusCode == 500) {
+        return LoginResult(false,
+            errorMessage: 'Internal server error. Please try again later.');
       } else {
         return LoginResult(false,
             errorMessage: 'An error occurred while logging in.');
