@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:founder_flock/provider/login_instance.dart';
-import 'package:founder_flock/views/chat/chatpage.dart';
+import 'package:founder_flock/views/chat/chat_page.dart';
 import 'package:founder_flock/views/login/login_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
