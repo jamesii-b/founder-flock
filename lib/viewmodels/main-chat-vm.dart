@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'package:FounderFlock/main.dart';
+import 'package:FounderFlock/models/friend_model.dart';
+import 'package:FounderFlock/services/websocket.dart';
 import 'package:flutter/material.dart';
-import 'package:founder_flock/main.dart';
-import 'package:founder_flock/models/friend_model.dart';
-import 'package:founder_flock/services/websocket.dart';
 import 'package:http/http.dart' as http;
 
 class ChatViewModel extends ChangeNotifier {
@@ -23,21 +23,41 @@ class ChatViewModel extends ChangeNotifier {
   Future<void> getFriends() async {
     try {
       print('Fetching friends...');
-      var response = await http.get(Uri.parse("$serverURL/api/friends/$uID"));
-      if (response.statusCode == 200) {
-        final List<dynamic> friendsData =
-            json.decode(response.body)[0]['friends'];
-        _friends = friendsData.map((friend) {
-          return Friend(
-            email: friend['email'] ?? '',
-            id: friend['_id'] ?? '',
-            profilePic: friend['profile_pic'] ?? '',
-          );
-        }).toList();
-        _isFriendsDataFetched = true;
-        notifyListeners();
+      // var routerURL = "${serverURL}/api/friends/$uID";
+      var routerURL = "${serverURL}/api/friends";
+      if (routerURL == "${serverURL}/api/friends/$uID") {
+        var response = await http.get(Uri.parse(routerURL));
+        if (response.statusCode == 200) {
+          final List<dynamic> friendsData =
+              json.decode(response.body)[0]['friends'];
+          _friends = friendsData.map((friend) {
+            return Friend(
+              email: friend['email'] ?? '',
+              id: friend['_id'] ?? '',
+              profilePic: friend['profile_pic'] ?? '',
+            );
+          }).toList();
+          _isFriendsDataFetched = true;
+          notifyListeners();
+        } else {
+          throw Exception('Failed to fetch friends');
+        }
       } else {
-        throw Exception('Failed to fetch friends');
+        var response = await http.get(Uri.parse(routerURL));
+        if (response.statusCode == 200) {
+          final List<dynamic> friendsData = json.decode(response.body);
+          _friends = friendsData.map((friend) {
+            return Friend(
+              email: friend['email'] ?? '',
+              id: friend['_id'] ?? '',
+              profilePic: friend['profile_pic'] ?? '',
+            );
+          }).toList();
+          _isFriendsDataFetched = true;
+          notifyListeners();
+        } else {
+          throw Exception('Failed to fetch friends');
+        }
       }
     } catch (error) {
       print('Error fetching friends: $error');

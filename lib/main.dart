@@ -1,7 +1,7 @@
 import 'dart:io';
+import 'package:FounderFlock/provider/login_instance.dart';
+import 'package:FounderFlock/router/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:founder_flock/provider/login_instance.dart';
-import 'package:founder_flock/router/app_router.dart';
 import 'package:provider/provider.dart';
 
 late String serverURL;

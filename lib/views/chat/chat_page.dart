@@ -1,11 +1,11 @@
 // View
+import 'package:FounderFlock/main.dart';
+import 'package:FounderFlock/provider/login_instance.dart';
+import 'package:FounderFlock/services/websocket.dart';
+import 'package:FounderFlock/viewmodels/main-chat-vm.dart';
+import 'package:FounderFlock/views/chat/individual_chat_page.dart';
+import 'package:FounderFlock/views/components/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:founder_flock/main.dart';
-import 'package:founder_flock/provider/login_instance.dart';
-import 'package:founder_flock/services/websocket.dart';
-import 'package:founder_flock/viewmodels/main-chat-vm.dart';
-import 'package:founder_flock/views/chat/individual_chat_page.dart';
-import 'package:founder_flock/views/components/navbar.dart';
 import 'package:provider/provider.dart';
 
 class ChatPage extends StatefulWidget {

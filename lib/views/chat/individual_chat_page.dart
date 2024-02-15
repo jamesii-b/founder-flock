@@ -1,8 +1,8 @@
+import 'package:FounderFlock/main.dart';
+import 'package:FounderFlock/models/friend_model.dart';
+import 'package:FounderFlock/provider/login_instance.dart';
+import 'package:FounderFlock/viewmodels/all-chat-vm.dart';
 import 'package:flutter/material.dart';
-import 'package:founder_flock/main.dart';
-import 'package:founder_flock/models/friend_model.dart';
-import 'package:founder_flock/provider/login_instance.dart';
-import 'package:founder_flock/viewmodels/all-chat-vm.dart';
 import 'package:provider/provider.dart';
 
 class OneToOneChatPage extends StatefulWidget {

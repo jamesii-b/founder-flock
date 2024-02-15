@@ -1,8 +1,8 @@
+import 'package:FounderFlock/provider/login_instance.dart';
+import 'package:FounderFlock/views/chat/chat_page.dart';
+import 'package:FounderFlock/views/login/login_page.dart';
+import 'package:FounderFlock/views/profile/profile_page.dart';
 import 'package:flutter/material.dart';
-import 'package:founder_flock/provider/login_instance.dart';
-import 'package:founder_flock/views/chat/chat_page.dart';
-import 'package:founder_flock/views/login/login_page.dart';
-import 'package:founder_flock/views/profile/profile_page.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 

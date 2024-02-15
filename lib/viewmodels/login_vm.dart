@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'package:FounderFlock/main.dart';
+import 'package:FounderFlock/provider/login_instance.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:founder_flock/main.dart';
-import 'package:founder_flock/provider/login_instance.dart';
 import 'package:provider/provider.dart';
 
 class LoginResult {

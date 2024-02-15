@@ -1,5 +1,6 @@
+import 'package:FounderFlock/views/components/navbar.dart';
 import 'package:flutter/material.dart';
-import 'package:founder_flock/views/components/navbar.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -16,8 +17,11 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text('Profile'),
       ),
       bottomNavigationBar: bottomNavigationBar(currentPageIndex: 1),
-      body: const Center(
-        child: Text('Profile Page'),
+      body: Column(
+        children: const [
+          Text('Profile Page'),
+          
+        ],
       ),
     );
   }

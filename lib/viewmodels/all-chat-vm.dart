@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:FounderFlock/services/websocket.dart';
 import 'package:flutter/material.dart';
-import 'package:founder_flock/services/websocket.dart';
 import 'package:http/http.dart' as http;
 
 class AllChatsViewModel extends ChangeNotifier {
