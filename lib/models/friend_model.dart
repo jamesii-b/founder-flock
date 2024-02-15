@@ -10,7 +10,7 @@ class Friend {
   });
   factory Friend.fromJson(Map<String, dynamic> json) {
     return Friend(
-      id: json['id'],
+      id: json['_id'],
       email: json['email'],
       profilePic: json['profilePic'],
     );

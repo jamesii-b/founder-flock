@@ -17,6 +17,7 @@ class OneToOneChatPage extends StatefulWidget {
 class _OneToOneChatPageState extends State<OneToOneChatPage> {
   final TextEditingController _messageController = TextEditingController();
   late AllChatsViewModel _viewModel;
+  late bool isSent;
 
   @override
   void initState() {
@@ -25,7 +26,7 @@ class _OneToOneChatPageState extends State<OneToOneChatPage> {
       uID: Provider.of<LoginProvider>(context, listen: false).uID,
       serverURL: serverURL,
     );
-    _viewModel.getMessages(widget.friend.id);
+    _viewModel.getInitialMessages(widget.friend.id);
   }
 
   @override
@@ -47,7 +48,7 @@ class _OneToOneChatPageState extends State<OneToOneChatPage> {
               stream: _viewModel.messageStream,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (snapshot.hasError) {
@@ -60,16 +61,21 @@ class _OneToOneChatPageState extends State<OneToOneChatPage> {
                     itemCount: messages.length,
                     itemBuilder: (context, index) {
                       var message = messages[index];
+                      if (message['senderID'] == widget.friend.id) {
+                        isSent = false;
+                      } else if (message['senderID'] ==
+                          Provider.of<LoginProvider>(context, listen: false)
+                              .uID) {
+                        isSent = true;
+                      }
                       return ChatBubble(
                         message: message['message'],
-                        isSent: message['senderID'] == _viewModel.uID,
+                        isSent: isSent,
                       );
                     },
                   );
                 } else {
-                  return Center(
-                    child: Text('No messages available'),
-                  );
+                  return const Text("");
                 }
               },
             ),
@@ -80,15 +86,22 @@ class _OneToOneChatPageState extends State<OneToOneChatPage> {
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _messageController,
-                    decoration: InputDecoration(
-                      hintText: 'Type a message...',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
+                      controller: _messageController,
+                      decoration: const InputDecoration(
+                        hintText: 'Type a message...',
+                        border: OutlineInputBorder(),
+                      ),
+                      onSubmitted: (value) {
+                        _viewModel.sendMessage(
+                          widget.friend.id,
+                          _messageController.text,
+                        );
+
+                        _messageController.clear();
+                      }),
                 ),
                 IconButton(
-                  icon: Icon(Icons.send),
+                  icon: const Icon(Icons.send),
                   onPressed: () {
                     _viewModel.sendMessage(
                       widget.friend.id,
@@ -121,8 +134,8 @@ class ChatBubble extends StatelessWidget {
     return Align(
       alignment: isSent ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-        padding: EdgeInsets.all(12),
+        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: isSent ? Colors.blue : Colors.grey[300],
           borderRadius: BorderRadius.circular(16),

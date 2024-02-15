@@ -33,10 +33,6 @@ class LoginViewModel extends ChangeNotifier {
         Provider.of<LoginProvider>(context, listen: false)
             .updateLoginStatus(true);
 
-        print(response.body);
-        print(response.headers['set-cookie']);
-        print("\n \n \n");
-        print(response.headers);
         return LoginResult(true);
       } else if (response.statusCode == 403) {
         return LoginResult(false, errorMessage: 'Invalid email or password.');

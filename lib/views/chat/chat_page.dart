@@ -4,7 +4,7 @@ import 'package:founder_flock/main.dart';
 import 'package:founder_flock/provider/login_instance.dart';
 import 'package:founder_flock/services/websocket.dart';
 import 'package:founder_flock/viewmodels/main-chat-vm.dart';
-import 'package:founder_flock/views/chat/one-one_page.dart';
+import 'package:founder_flock/views/chat/individual_chat_page.dart';
 import 'package:provider/provider.dart';
 
 class ChatPage extends StatefulWidget {
@@ -52,8 +52,9 @@ class _ChatPageState extends State<ChatPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OneToOneChatPage(friend: friend,)
-                        ),
+                            builder: (context) => OneToOneChatPage(
+                                  friend: friend,
+                                )),
                       );
                     },
                   );

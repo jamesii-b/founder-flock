@@ -25,13 +25,13 @@ class AllChatsViewModel extends ChangeNotifier {
     );
     webSocketManager.connect();
     webSocketManager.listenForMessages((message) {
-      _messages.add([message]);
+      _messages.add(message);
       print("Received websocket message: $message");
-      _messageStreamController.add([message]);
+      _messageStreamController.add(_messages);
     });
   }
 
-  Future<void> getMessages(String friendID) async {
+  Future<void> getInitialMessages(String friendID) async {
     try {
       var response = await http.post(
         Uri.parse("$serverURL/api/chats/specific/"),
@@ -45,6 +45,7 @@ class AllChatsViewModel extends ChangeNotifier {
       );
       if (response.statusCode == 200) {
         _messages = json.decode(response.body);
+        print("api Messages: $_messages");
         _messageStreamController.add(_messages); // Add messages to stream
       } else {
         throw "Can't fetch messages";
@@ -55,20 +56,18 @@ class AllChatsViewModel extends ChangeNotifier {
   }
 
   void sendMessage(String friendID, String message) async {
-    // Always add messages as lists to maintain consistency
+    // Always add messages to maintain consistency
     webSocketManager.sendMessage({
       'senderID': uID,
       'receiverID': friendID,
       'message': message,
     });
-    _messageStreamController.add([
-      {
-        'senderID': uID,
-        'receiverID': friendID,
-        'message': message,
-      }
-    ]);
-    // Send the message via websocket
+    _messages.add({
+      'senderID': uID,
+      'receiverID': friendID,
+      'message': message,
+    });
+    _messageStreamController.add(_messages);
   }
 
   void disposeWebSocketManager() {
