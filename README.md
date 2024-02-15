@@ -65,4 +65,4 @@ Contributions are welcome! Please feel free to fork the repository and submit pu
 
 ## Contact
 
-For any inquiries or support, please contact @[jamesii-b]('https://github.com/jamesii-b). 
+For any inquiries or support, please contact @[jamesii-b](https://github.com/jamesii-b)
