@@ -5,6 +5,7 @@ import 'package:founder_flock/provider/login_instance.dart';
 import 'package:founder_flock/services/websocket.dart';
 import 'package:founder_flock/viewmodels/main-chat-vm.dart';
 import 'package:founder_flock/views/chat/individual_chat_page.dart';
+import 'package:founder_flock/views/components/navbar.dart';
 import 'package:provider/provider.dart';
 
 class ChatPage extends StatefulWidget {
@@ -30,6 +31,10 @@ class _ChatPageState extends State<ChatPage> {
         uID: Provider.of<LoginProvider>(context, listen: false).uID,
       ),
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Contacts:'),
+        ),
+        bottomNavigationBar: bottomNavigationBar(currentPageIndex: 0),
         body: Consumer<ChatViewModel>(
           builder: (context, viewModel, child) {
             if (!(viewModel.isFriendsDataFetched)) {
