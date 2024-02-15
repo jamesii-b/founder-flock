@@ -26,7 +26,7 @@ class LoginViewModel extends ChangeNotifier {
           'password': password,
         }),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200)  {
         Map<String, dynamic> responseData = jsonDecode(response.body);
         Provider.of<UserProvider>(context, listen: false)
             .updateuID(responseData['_id']);

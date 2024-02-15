@@ -2,6 +2,7 @@ import 'package:FounderFlock/provider/login_instance.dart';
 import 'package:FounderFlock/views/chat/chat_page.dart';
 import 'package:FounderFlock/views/login/login_page.dart';
 import 'package:FounderFlock/views/profile/profile_page.dart';
+import 'package:FounderFlock/views/registration/registration_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,7 @@ class AppRouter {
         return const MaterialPage(
             child: Scaffold(body: Center(child: Text('Page not found'))));
       },
-      initialLocation: '/',
+      initialLocation: '/login',
       routes: [
         GoRoute(
           path: '/',
@@ -31,6 +32,12 @@ class AppRouter {
           path: '/login',
           pageBuilder: (context, state) =>
               const MaterialPage(child: LoginPage()),
+        ),
+        GoRoute(
+          name: 'signup',
+          path: '/signup',
+          pageBuilder: (context, state) =>
+              const MaterialPage(child: RegistrationPage()),
         ),
         GoRoute(
           name: 'chat',

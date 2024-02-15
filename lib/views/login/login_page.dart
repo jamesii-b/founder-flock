@@ -39,7 +39,12 @@ class _LoginPageState extends State<LoginPage> {
             IconButton(
               icon: Icon(Icons.send),
               onPressed: _isLoading ? null : _performLogin,
-            )
+            ),
+              ElevatedButton(
+              onPressed: () {
+                GoRouter.of(context).go('/signup');
+              },
+              child: const Text('Sign Up'),),
           ],
         ),
       ),
