@@ -1,7 +1,6 @@
-import 'package:FounderFlock/viewmodels/registration_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
+import 'package:FounderFlock/viewmodels/registration_vm.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -14,13 +13,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
+  bool _isObscure = true; // For password visibility
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Registration'),
-      ),
       body: _isLoading ? _buildLoadingIndicator() : _buildRegistrationForm(),
     );
   }
@@ -33,31 +30,93 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   Widget _buildRegistrationForm() {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          TextField(
-            controller: _emailController,
-            decoration: InputDecoration(labelText: 'Email'),
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.blueAccent, Colors.lightBlue],
           ),
-          SizedBox(height: 16.0),
-          TextField(
-            controller: _passwordController,
-            decoration: InputDecoration(labelText: 'Password'),
-            obscureText: true,
-          ),
-          SizedBox(height: 16.0),
-          ElevatedButton(
-            onPressed: _performRegistration,
-            child: Text('Register'),
-          ),
-          ElevatedButton(
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Registration',
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: 'Email',
+                labelStyle: TextStyle(color: Colors.white),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+              ),
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(height: 20),
+            TextFormField(
+              controller: _passwordController,
+              obscureText: _isObscure,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                labelStyle: TextStyle(color: Colors.white),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _isObscure = !_isObscure;
+                    });
+                  },
+                  icon: Icon(
+                    _isObscure ? Icons.visibility_off : Icons.visibility,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _performRegistration,
+              child: Text('Register'),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.blueAccent,
+              ),
+            ),
+            SizedBox(height: 10),
+            TextButton(
               onPressed: () {
                 GoRouter.of(context).go('/login');
               },
-              child: const Text('Login')),
-        ],
+              child: Text(
+                'Already have an account? Login',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -80,7 +139,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       // Registration successful, navigate to another page or show success message.
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Registration failed: "),
+        content: Text("Registration failed"),
       ));
       if (result.errorMessage != null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
