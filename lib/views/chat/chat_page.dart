@@ -26,9 +26,9 @@ class _ChatPageState extends State<ChatPage> {
       create: (context) => ChatViewModel(
         webSocketManager: WebSocketManager(
           serverURL: serverURL,
-          uID: Provider.of<LoginProvider>(context, listen: false).uID,
+          uID: Provider.of<UserProvider>(context, listen: false).uID,
         ),
-        uID: Provider.of<LoginProvider>(context, listen: false).uID,
+        uID: Provider.of<UserProvider>(context, listen: false).uID,
       ),
       child: Scaffold(
         appBar: AppBar(

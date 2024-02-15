@@ -17,8 +17,8 @@ class AppRouter {
         GoRoute(
           path: '/',
           pageBuilder: (context, state) {
-            final loginProvider = Provider.of<LoginProvider>(context,
-                listen: false); // Access the LoginProvider instance
+            final loginProvider = Provider.of<UserProvider>(context,
+                listen: false); // Access the UserProvider instance
             if (loginProvider.isLogin) {
               return MaterialPage(child: ChatPage());
             } else {

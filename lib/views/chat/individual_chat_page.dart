@@ -23,7 +23,7 @@ class _OneToOneChatPageState extends State<OneToOneChatPage> {
   void initState() {
     super.initState();
     _viewModel = AllChatsViewModel(
-      uID: Provider.of<LoginProvider>(context, listen: false).uID,
+      uID: Provider.of<UserProvider>(context, listen: false).uID,
       serverURL: serverURL,
     );
     _viewModel.getInitialMessages(widget.friend.id);
@@ -64,7 +64,7 @@ class _OneToOneChatPageState extends State<OneToOneChatPage> {
                       if (message['senderID'] == widget.friend.id) {
                         isSent = false;
                       } else if (message['senderID'] ==
-                          Provider.of<LoginProvider>(context, listen: false)
+                          Provider.of<UserProvider>(context, listen: false)
                               .uID) {
                         isSent = true;
                       }

@@ -24,7 +24,7 @@ class ChatViewModel extends ChangeNotifier {
     try {
       print('Fetching friends...');
       // var routerURL = "${serverURL}/api/friends/$uID";
-      var routerURL = "${serverURL}/api/friends";
+      var routerURL = "${serverURL}/api/friends/all/$uID";
       if (routerURL == "${serverURL}/api/friends/$uID") {
         var response = await http.get(Uri.parse(routerURL));
         if (response.statusCode == 200) {

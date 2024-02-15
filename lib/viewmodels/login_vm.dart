@@ -28,9 +28,11 @@ class LoginViewModel extends ChangeNotifier {
       );
       if (response.statusCode == 200) {
         Map<String, dynamic> responseData = jsonDecode(response.body);
-        Provider.of<LoginProvider>(context, listen: false)
+        Provider.of<UserProvider>(context, listen: false)
             .updateuID(responseData['_id']);
-        Provider.of<LoginProvider>(context, listen: false)
+        Provider.of<UserProvider>(context, listen: false)
+            .updateEmail(responseData['email']);
+        Provider.of<UserProvider>(context, listen: false)
             .updateLoginStatus(true);
 
         return LoginResult(true);
